@@ -1056,11 +1056,15 @@ mod tests {
         let config = schema.default_config_toml();
 
         for name in [
-            "Clock", "Misc", "AMVideo", "DVD", "Epay", "OpenSsl", "Hwmon", "Hwreset", "HookMode",
+            "Clock", "Misc", "DVD", "Epay", "OpenSsl", "Hwmon", "Hwreset", "HookMode",
         ] {
             assert!(schema.section(name).is_none());
             assert!(!config.contains(&format!("[{name}]")));
         }
+        assert!(schema
+            .section("AMVideo")
+            .is_some_and(|section| section.hidden));
+        assert!(!config.contains("[AMVideo]"));
         assert!(config.contains("[PCBID]"));
         assert!(config.contains("[VFS]"));
         assert!(config.contains("[SliderDevice]"));

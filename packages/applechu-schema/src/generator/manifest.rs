@@ -63,6 +63,7 @@ fn ui_metadata(sections: &[SectionDecl]) -> toml::Table {
                 .iter()
                 .filter(|section| {
                     should_export(section)
+                        && !section.hidden.value
                         && section
                             .group
                             .as_ref()

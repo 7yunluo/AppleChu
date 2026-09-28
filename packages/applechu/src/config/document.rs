@@ -84,7 +84,7 @@ impl Config {
             let Some(loaded) = self.sections.get(&(descriptor.type_id)()) else {
                 continue;
             };
-            if descriptor.builtin() {
+            if descriptor.builtin() || (descriptor.hidden() && !loaded.explicit()) {
                 continue;
             }
             output.push('\n');
@@ -92,7 +92,7 @@ impl Config {
             output.push('[');
             output.push_str(descriptor.name);
             output.push_str("]\n");
-            if !descriptor.hidden() && !descriptor.always_enabled() {
+            if !descriptor.always_enabled() {
                 output.push_str("Enable = ");
                 output.push_str(if loaded.enabled { "true\n" } else { "false\n" });
             }

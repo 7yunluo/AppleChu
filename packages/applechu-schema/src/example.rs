@@ -28,6 +28,9 @@ impl Schema {
     fn config_toml(&self, include_advanced: bool) -> String {
         let mut output = String::from(DEFAULT_CONFIG_HEADER);
         for section in &self.sections {
+            if section.hidden {
+                continue;
+            }
             output.push('\n');
             append_comment(&mut output, section.label.zh_or_en());
             output.push('[');
@@ -125,6 +128,8 @@ mod tests {
         assert_eq!(example, schema.default_config_toml());
         assert!(full.parse::<toml::Table>().is_ok());
         assert!(!example.contains("EnableConsole"));
+        assert!(!example.contains("[AMVideo]"));
+        assert!(!full.contains("[AMVideo]"));
         assert!(full.contains("#EnableConsole = true"));
         assert!(full.contains("#AppendConfigArgs = true"));
         assert!(example.contains("#Test = 0x70"));

@@ -91,6 +91,7 @@ pub static CONFIG_SECTIONS: [SectionDescriptor];
 pub struct LoadedSection {
     pub descriptor: &'static SectionDescriptor,
     pub enabled: bool,
+    explicit: bool,
     value: Arc<dyn Any + Send + Sync>,
     explicit_fields: Vec<bool>,
 }
@@ -107,6 +108,7 @@ impl LoadedSection {
         Self {
             descriptor: T::descriptor(),
             enabled,
+            explicit: table.is_some(),
             value: Arc::new(value),
             explicit_fields,
         }
@@ -118,6 +120,10 @@ impl LoadedSection {
 
     pub fn explicit_fields(&self) -> &[bool] {
         &self.explicit_fields
+    }
+
+    pub fn explicit(&self) -> bool {
+        self.explicit
     }
 }
 

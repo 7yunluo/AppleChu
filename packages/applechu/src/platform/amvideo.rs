@@ -12,6 +12,7 @@ crate::config_section! {
         default_on: true,
         always_enabled: false,
         hidden: true,
+        export: true,
         comment: "AMVideo 平台模拟",
         fields: {}
     }
