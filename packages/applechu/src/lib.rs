@@ -18,6 +18,8 @@ pub mod config;
 mod d3d9;
 #[cfg(target_arch = "x86")]
 mod early_patch;
+#[cfg(target_arch = "x86")]
+mod gameplay;
 mod gfx;
 mod io4;
 pub mod iohook;

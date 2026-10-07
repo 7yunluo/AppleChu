@@ -1121,6 +1121,7 @@ mod tests {
                 "FpsDisplay",
                 "FrameLock",
                 "DpiAware",
+                "RestartSong",
                 "PCBID",
                 "VFS",
                 "NetEnv",
